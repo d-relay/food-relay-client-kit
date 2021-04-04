@@ -6,7 +6,7 @@ const autoprefixer = require('autoprefixer');
 const production = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    plugins: production
-        ? [tailwindcss, postcssPreset, autoprefixer, cssnano]
-        : [tailwindcss]
+	plugins: production
+		? [tailwindcss, postcssPreset, autoprefixer, cssnano]
+		: [tailwindcss]
 };

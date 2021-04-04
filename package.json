@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev:tailwind": "postcss src/routes/tailwind.css -o static/index.css",
 		"prebuild": "cross-env NODE_ENV=production postcss src/routes/tailwind.css -o static/index.css",
+		"editorconfig": "editorconfig-checker",
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
 		"start": "node build/index.js"
@@ -20,6 +21,7 @@
 		"cross-env": "^7.0.3",
 		"cssnano": "^4.1.10",
 		"dotenv": "^8.2.0",
+		"editorconfig-checker": "^4.0.2",
 		"postcss": "^8.2.9",
 		"postcss-cli": "^8.3.1",
 		"postcss-load-config": "^3.0.1",
