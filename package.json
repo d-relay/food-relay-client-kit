@@ -4,10 +4,10 @@
 	"type": "module",
 	"scripts": {
 		"dev:tailwind": "postcss src/routes/tailwind.css -o static/index.css",
-		"prod:tailwind": "cross-env NODE_ENV=production postcss src/routes/tailwind.css -o static/index.css",
+		"prebuild": "cross-env NODE_ENV=production postcss src/routes/tailwind.css -o static/index.css",
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
-		"start": "svelte-kit start"
+		"start": "node build/index.js"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "next",
