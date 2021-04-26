@@ -10,8 +10,8 @@
         response_type: "code"
     }
 
-	export async function load(request) {
-		if (request.session?.user || request.context?.user) {
+	export async function load({session }) {
+		if (session.user) {
 			return { redirect: '/', status: 302 };
 		} else {
             const redirect_url = buildUrl('https://id.twitch.tv/oauth2/authorize', twitchOptions);

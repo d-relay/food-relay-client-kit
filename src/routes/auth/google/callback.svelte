@@ -18,7 +18,7 @@
     import { goto } from "$app/navigation";
 
     onMount(async () => {
-      const response = await post("/auth/login", { code, provider: "twitch" });
+      const response = await post("/auth/login", { code, provider: "google" });
       if (response.user) {
         $session.user = response.user;
       }

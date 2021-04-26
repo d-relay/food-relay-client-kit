@@ -8,15 +8,21 @@ export function buildUrl(url, parameters = {}) {
     return url
 }
 
-export function post(endpoint, data) {
-    return fetch(endpoint, {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(data || {}),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then((r) => r.json());
+export async function post(endpoint, data) {
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(data || {}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.ok) return response.json();
+        else throw new Error(response.statusText)
+    } catch (error) {
+        throw new Error(error)
+    }
 }
 
 export function getCookie(cookie = '', name) {
