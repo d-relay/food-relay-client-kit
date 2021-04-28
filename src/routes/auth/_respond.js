@@ -9,11 +9,8 @@ export function respond(body) {
     date.setTime(date.getTime() + (60 * 60 * 1000));
     const expires = date.toUTCString();
 
-    console.log(`jwt=${value}; Path=/; HttpOnly; Secure; Expires=${expires}`);
     return {
-        headers: {
-            'set-cookie': `jwt=${value}; Path=/; HttpOnly; Secure; Expires=${expires}`
-        },
+        headers: { 'set-cookie': `jwt=${value}; Path=/; HttpOnly; Secure; Expires=${expires}` },
         body
     };
 }
