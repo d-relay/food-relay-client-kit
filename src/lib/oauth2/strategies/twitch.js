@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { buildUrl } from '../../util';
 
-export class TwitchApi {
+export class TwitchStrategy {
     #TWITCH_TOKEN_URL = 'https://id.twitch.tv/oauth2/token';
     #TWITCH_USERS_URL = 'https://api.twitch.tv/helix/users';
 

@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { buildUrl } from '../../util';
 
-export class GoogleApi {
+export class GoogleStrategy {
     #GOOGLE_TOKEN_URL = 'https://www.googleapis.com/oauth2/v4/token';
     #GOOGLE_USERS_URL = 'https://www.googleapis.com/oauth2/v3/userinfo';
 

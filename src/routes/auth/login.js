@@ -1,5 +1,6 @@
 import { respond } from './_respond';
-import { TwitchOauth, GoogleOauth } from '$lib/oauth2';
+import { Oauth2 } from '$lib/oauth2';
+import { GoogleStrategy, TwitchStrategy } from '$lib/oauth2/strategies';
 
 export async function post({ body, context }) {
     if (!body.code) {
@@ -7,11 +8,11 @@ export async function post({ body, context }) {
     }
     try {
         if (body.provider === 'twitch') {
-            const twitchOauth = new TwitchOauth();
+            const twitchOauth = new Oauth2(new TwitchStrategy());
             const user = await twitchOauth.get_access_token(body.code);
             return respond({ user });
         } else if (body.provider === 'google') {
-            const googleOauth = new GoogleOauth()
+            const googleOauth = new Oauth2(new GoogleStrategy())
             const user = await googleOauth.get_access_token(body.code);
             return respond({ user });
         } else {
