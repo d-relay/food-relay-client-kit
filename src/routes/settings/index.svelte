@@ -21,12 +21,12 @@
 </script>
 
 <main class="lg:relative container mx-auto">
-    <header class="md:pt-4 lg:pt-8 px-4 pt-2 sm:px-0">
+    <header class="lg:pt-6 md:pt-4 pt-2 px-4 sm:px-0">
         <h1 class="text-xl sm:text-2xl md:text-3xl">
             Вітання <span class="font-semibold">{user.display_name} 🤗</span>
         </h1>
     </header>
-    <section class="rounded overflow-hidden shadow-lg sm:border relative my-6">
+    <section class="rounded overflow-hidden shadow-lg sm:border relative lg:my-6 md:my-4 my-2">
         <header class="border-b bg-gray-50 p-6">
             <h2 class="text-lg leading-6 font-medium text-gray-900">
                 Адреса для служби доставки 🚚

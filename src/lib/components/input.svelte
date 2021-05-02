@@ -1,15 +1,13 @@
 <script>
     import { t } from "svelte-intl-precompile";
 
-    function actionType(node) {
-        node.type = type;
-    }
+    export let component,
+        name,
+        type,
+        value = "";
 
-    export let component;
-    export let name;
-    export let type;
-    export let value = "";
     const i18n = component + "." + name;
+    const actionType = (node) => (node.type = type);
     const handleInput = (event) => (value = event.target.value);
 </script>
 
