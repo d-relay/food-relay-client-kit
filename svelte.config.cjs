@@ -2,6 +2,7 @@ const sveltePreprocess = require('svelte-preprocess');
 const node = require('@sveltejs/adapter-node');
 const pkg = require('./package.json');
 const dotenv = require('dotenv');
+const precompileIntl = require("svelte-intl-precompile/sveltekit-plugin");
 dotenv.config();
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -27,7 +28,10 @@ module.exports = {
 		vite: {
 			ssr: {
 				noExternal: Object.keys(pkg.dependencies || {}),
-			}
+			},
+			plugins: [
+				precompileIntl('locales') // if your translations are defined in /locales/[lang].js
+			]
 		}
 	}
 };

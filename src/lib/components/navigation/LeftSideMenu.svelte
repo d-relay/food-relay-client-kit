@@ -16,6 +16,7 @@
     </div>
     <div class="hidden sm:ml-6 sm:flex">
         <a href="/" class="link">Dashboard</a>
+        <a href="/settings" class="link">Settings</a>
     </div>
 </div>
 
@@ -50,14 +51,5 @@
         &:not(:first-child) {
             @apply ml-8;
         }
-
-        // &.active {
-        //     @apply text-gray-900;
-        //     @apply border-indigo-500;
-        //     &:focus {
-        //         @apply outline-none;
-        //         @apply border-indigo-700;
-        //     }
-        // }
     }
 </style>

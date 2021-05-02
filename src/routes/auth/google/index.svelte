@@ -1,11 +1,13 @@
 <script context="module">
+    export const router = false;
+    export const hydrate = false;
     import { buildUrl } from "$lib/util";
 
     const authorizationURL = "https://accounts.google.com/o/oauth2/v2/auth";
     const googleOptions = {
         client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
         redirect_uri: import.meta.env.VITE_GOOGLE_REDIRECT_URL,
-        scope: 'email profile',
+        scope: "email profile",
         response_type: "code",
     };
 

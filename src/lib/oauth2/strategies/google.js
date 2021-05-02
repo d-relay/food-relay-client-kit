@@ -27,7 +27,8 @@ export class GoogleStrategy {
         if (profile.name) {
             profile.displayName = profile.name
             delete profile.name;
-        } else if (profile.sub) {
+        }
+        if (profile.sub) {
             profile.id = profile.sub
             delete profile.sub;
         }

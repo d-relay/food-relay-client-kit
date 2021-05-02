@@ -10,6 +10,7 @@ export async function post({ body, context }) {
         if (body.provider === 'twitch') {
             const twitchOauth = new Oauth2(new TwitchStrategy());
             const user = await twitchOauth.get_access_token(body.code);
+            console.log({ user });
             return respond({ user });
         } else if (body.provider === 'google') {
             const googleOauth = new Oauth2(new GoogleStrategy())

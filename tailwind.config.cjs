@@ -9,6 +9,10 @@ module.exports = {
 			keyframes: true,
 		},
 	},
+	future: {
+		purgeLayersByDefault: true,
+		removeDeprecatedGapUtilities: true,
+	},
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {

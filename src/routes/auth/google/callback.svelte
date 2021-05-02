@@ -1,15 +1,15 @@
 <script context="module">
     export async function load({ session, page }) {
-      if (session.user) {
-        return { redirect: "/", status: 302 };
-      } else {
-        const code = page.query.get("code");
-        return { props: { code } };
-      }
+        if (session.user) {
+            return { redirect: "/", status: 302 };
+        } else {
+            const code = page.query.get("code");
+            return { props: { code } };
+        }
     }
-  </script>
+</script>
 
-  <script>
+<script>
     export let code;
 
     import { onMount } from "svelte";
@@ -18,10 +18,17 @@
     import { goto } from "$app/navigation";
 
     onMount(async () => {
-      const response = await post("/auth/login", { code, provider: "google" });
-      if (response.user) {
-        $session.user = response.user;
-      }
-      return goto("/");
+        try {
+            const response = await post("/auth/login", {
+                code,
+                provider: "google",
+            });
+            if (response.user) {
+                $session.user = response.user;
+                return goto("/settings");
+            }
+        } catch (error) {
+            return goto("/login");
+        }
     });
-  </script>
+</script>

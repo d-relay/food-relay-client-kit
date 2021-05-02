@@ -1,18 +1,26 @@
-<script>
-    export let status;
-    export let error;
+<script context="module">
+    export function load({ error, status }) {
+        return {
+            props: {
+                title: `${status}: ${error.message}`,
+                stack: error.stack,
+            },
+        };
+    }
+</script>
 
+<script>
+    export let title, stack;
     const dev = process.env.NODE_ENV === "development";
 </script>
 
 <svelte:head>
-    <title>{status}</title>
+    <title>{title}</title>
 </svelte:head>
 
 <main class="container mx-auto mt-8">
-    <h1>{status}</h1>
-    <p>{error.message}</p>
-    {#if dev && error.stack}
-        <pre>{error.stack}</pre>
+    <h1>{title}</h1>
+    {#if dev && stack}
+        <pre>{stack}</pre>
     {/if}
 </main>
