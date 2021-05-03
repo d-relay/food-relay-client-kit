@@ -1,11 +1,11 @@
 export function buildUrl(url, parameters = {}) {
     const qString = parameters && Object.keys(parameters).map((key) => {
-        return `${encodeURIComponent(key)}=${encodeURIComponent(parameters[key])}`
+        return `${key}=${parameters[key]}`
     }).join('&')
     if (qString) {
         url += `?${qString}`
     }
-    return url
+    return encodeURI(url);
 }
 
 export async function post(endpoint, data) {

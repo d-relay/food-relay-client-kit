@@ -1,6 +1,4 @@
 <script context="module">
-    export const router = false;
-    export const hydrate = false;
     import { buildUrl } from "$lib/util";
     const authorizationURL = "https://id.twitch.tv/oauth2/authorize";
     const twitchOptions = {
