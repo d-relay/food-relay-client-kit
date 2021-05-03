@@ -38,12 +38,4 @@ export class TwitchStrategy {
 
         return profile;
     }
-
-    async get_token(profile, accessToken) {
-        return fetch(import.meta.env.VITE_API_BASE_URL + "/login", {
-            method: "POST",
-            body: JSON.stringify({ ...profile, accessToken }),
-            headers: { "Content-Type": "application/json" },
-        }).then(res => res.json())
-    }
 }
