@@ -10,7 +10,8 @@ export function respond(body) {
     const expires = date.toUTCString();
 
     return {
-        headers: { 'set-cookie': `jwt=${value}; Path=/; HttpOnly; Secure; Expires=${expires}` },
+        status: 302,
+        headers: { 'set-cookie': `jwt=${value}; Path=/; HttpOnly; Secure; Expires=${expires}`, Location: '/settings' },
         body
     };
 }

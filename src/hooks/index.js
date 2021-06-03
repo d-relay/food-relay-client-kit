@@ -1,17 +1,30 @@
 import { getCookie } from "$lib/util";
+// import { appAuth } from "$lib/appAuth";
 
-export function getContext({ headers }) {
-	const cookies = getCookie(headers.cookie, 'jwt');
+/** @type {import('@sveltejs/kit').Handle} */
+export async function handle({ request, render }) {
+	const cookies = getCookie(request.headers.cookie, 'jwt');
 	const jwt = cookies && Buffer.from(cookies, 'base64').toString('utf-8');
-	return { user: jwt ? JSON.parse(jwt) : null }
+	request.locals.user = jwt && JSON.parse(jwt);
+
+	const response = await render(request);
+
+	return {
+		...response,
+		headers: {
+			...response.headers,
+			user: jwt ? JSON.parse(jwt) : null
+		}
+	};
 }
 
-export function getSession({ context }) {
+/** @type {import('@sveltejs/kit').GetSession} */
+export function getSession(request) {
 	return {
-		user: context.user && {
-			email: context.user?.email,
-			picture: context.user?.picture,
-			display_name: context.user?.display_name,
+		user: request.locals.user && {
+			email: request.locals.user?.email,
+			picture: request.locals.user?.picture,
+			display_name: request.locals.user?.display_name,
 		},
 	};
 }

@@ -1,4 +1,4 @@
-module.exports = {
+module.exports =  {
 	mode: 'jit',
 	purge: {
 		content: [
