@@ -1,11 +1,7 @@
 const cssnano = require('cssnano')({ preset: 'default' });
-const tailwindcss = require('tailwindcss');
-const autoprefixer = require('autoprefixer');
+const windicss = require('postcss-windicss');
 
 const production = process.env.NODE_ENV === 'production';
 
-module.exports = {
-	plugins: production
-		? [tailwindcss, autoprefixer, cssnano]
-		: [tailwindcss]
-};
+module.exports = { plugins: production ? [windicss, cssnano] : [windicss] };
+

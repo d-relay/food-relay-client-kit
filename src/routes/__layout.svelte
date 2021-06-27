@@ -1,30 +1,29 @@
-<script context="module">
-	import { dev } from "$app/env";
-	import { session } from "$app/stores";
-	export const hydrate = dev;
-</script>
-
 <script>
+	import { session } from "$app/stores";
+
 	import {
-		addMessages,
+		register,
 		init,
+		locale,
 		getLocaleFromNavigator,
 	} from "svelte-intl-precompile";
-	import en from "$lib/locales/en.json";
-	import ru from "$lib/locales/uk.json";
-	import uk from "$lib/locales/ru.json";
 
 	import Header from "$lib/components/navigation/Header.svelte";
 
-	addMessages("en", en);
-	addMessages("uk", uk);
-	addMessages("ru", ru);
+	register("en", () => import("$lib/locales/en.json"));
+	register("ru", () => import("$lib/locales/ru.json"));
+	register("uk", () => import("$lib/locales/uk.json"));
 
-	init({ fallbackLocale: "en", initialLocale: getLocaleFromNavigator() });
-
-	console.log($session.user)
+	init({
+		fallbackLocale: "en",
+		initialLocale: getLocaleFromNavigator($session.locale),
+	});
+	
+	locale.set($session.locale);
 </script>
 
 <Header />
 
 <slot />
+
+<style windi:preflights:global windi:safelist:global></style>

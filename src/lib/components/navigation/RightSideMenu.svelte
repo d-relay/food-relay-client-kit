@@ -1,10 +1,16 @@
 <script>
     export let user;
+    import { scale } from "svelte/transition";
     import { session } from "$app/stores";
     import { goto } from "$app/navigation";
-    import { post } from "$lib/util";
+
+    import { post, clickOutside } from "$lib/util";
+
+    import { locales, t, locale } from "svelte-intl-precompile";
 
     import Bell from "../icons/Bell.svelte";
+
+    let showLang = false;
 
     async function logout() {
         const response = await post("/auth/logout");
@@ -13,43 +19,70 @@
             return goto("/");
         }
     }
+
+    function setLocale(lang) {
+        showLang = false;
+        $session.locale = lang;
+        post("/lang", { lang });
+    }
 </script>
 
 <div
     class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static
       sm:inset-auto sm:ml-6 sm:pr-0"
 >
-    <!-- <div class="ml-3 relative">
-      <Dropdown triggerElement={dropdownLangTrigger}>
+    <div
+        class="mt-1 relative"
+        use:clickOutside
+        on:click_outside={() => (showLang = false)}
+    >
         <button
-          bind:this={dropdownLangTrigger}
-          class="dropdown__button uppercase p-1 border-2 border-transparent text-gray-400 rounded-full
-          hover:text-gray-500 focus:outline-none focus:text-gray-500
-          focus:bg-gray-100 transition duration-150 ease-in-out"
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
+            on:click={() => (showLang = !showLang)}
+            class="bg-white relative w-full border border-gray-300 rounded-md shadow-sm 
+            pl-3 pr-10 py-2 text-left cursor-default 
+            focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         >
-          {$locale}
-        </button>
-        <div
-          class="dropdown__menu--inner"
-          role="menu"
-          slot="DropdownMenu"
-          aria-orientation="vertical"
-          aria-labelledby="user-menu"
-        >
-          {#each $locales as item}
+            <span class="block truncate">
+                {$t("language." + $session.locale + ".flag")}
+            </span>
             <span
-              class="dropdown__item cursor-pointer"
-              role="menuitem"
-              on:click={() => setLocale(item)}>{$format('language.' + item)}</span
+                class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
             >
-          {/each}
-        </div>
-      </Dropdown>
-    </div> -->
+                <svg
+                    class="h-5 w-5 text-gray-400"
+                    x-description="Heroicon name: solid/selector"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+            </span>
+        </button>
+        {#if showLang}
+            <div
+                in:scale={{ duration: 100, start: 0.95 }}
+                out:scale={{ duration: 75, start: 0.95 }}
+                class="origin-top-right absolute right-0 w-48 py-2 mt-1 border-1 bg-white rounded shadow-main"
+            >
+                {#each $locales as lang}
+                    <span
+                        class:selected={$session.locale === lang}
+                        class="dropdown__item cursor-pointer"
+                        role="menuitem"
+                        on:click={() => setLocale(lang)}
+                    >
+                        {$t("language." + lang)}
+                    </span>
+                {/each}
+            </div>
+        {/if}
+    </div>
+
     {#if user}
         <button
             class="p-1 ml-3 border-2 border-transparent text-gray-400 rounded-full
@@ -106,27 +139,25 @@
         </div>
         <button
             on:click={logout}
-            class="ml-3 relative inline-flex items-center px-4 py-2 border
-          border-transparent text-sm leading-5 font-medium rounded-md text-white
-          bg-indigo-600 shadow-md hover:bg-indigo-500 focus:outline-none
-          focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700
-          transition ease-in-out duration-150"
+            class="ml-3 relative inline-flex items-center px-4 py-2 border 
+            border-transparent text-sm leading-5 font-medium rounded-md 
+            hover:underline hover:text-indigo-500
+            transition ease-in-out duration-150 focus-link"
             >logout
         </button>
     {:else}
         <a
             href="/login"
             class="ml-3 relative inline-flex items-center px-4 py-2 border
-          border-transparent text-sm leading-5 font-medium rounded-md text-white
-          bg-indigo-600 shadow-md hover:bg-indigo-500 focus:outline-none
-          focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700
-          transition ease-in-out duration-150"
-            >login
+            border-transparent text-sm leading-5 font-medium rounded-md 
+            hover:underline hover:text-indigo-500
+            transition ease-in-out duration-150 focus-link "
+            >Login
         </a>
     {/if}
 </div>
 
-<style lang="scss">
+<style lang="postcss">
     .dropdown__button {
         @apply flex;
         @apply text-sm;
@@ -167,5 +198,15 @@
             @apply outline-none;
             @apply bg-gray-100;
         }
+    }
+
+    .dropdown__item.selected {
+        @apply bg-indigo-200;
+    }
+
+    .focus-link:focus {
+        @apply outline-none;
+        @apply ring-2;
+        @apply ring-indigo-500;
     }
 </style>

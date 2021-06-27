@@ -8,7 +8,11 @@ export default {
     "main.title": "Donate food!",
     "main.sub_title": "Relay Food is an interactive donation from the viewer right into your stream!",
 
-    "profile.hello": "Hello",
+    "login.welcome": 'Sign in to your account',
+    "login.twitch": 'Sign in with Twitch',
+    "login.google": 'Sign in with Google',
+
+    "tab.hello": "Hello",
 
     "location.title": "Address for delivery service 🚚",
     "location.region": "Region",
@@ -35,11 +39,15 @@ export default {
     "alert.token": "Token",
     "alert.save": "Save",
     "alert.demo": "Demo",
+
     "partner.title": "Our partners 🍕",
     "partner.subtitle": "Select partners from the list available for your address",
-
     "partner.select": "Select",
+
     "language.en": "English",
-    "language.uk": "Українська",
-    "language.ru": "Русский"
+    "language.uk": "Ukrainian",
+    "language.ru": "Russian",
+    "language.en.flag": "🇬🇧",
+    "language.uk.flag": "🇺🇦",
+    "language.ru.flag": "🇷🇺"
 }

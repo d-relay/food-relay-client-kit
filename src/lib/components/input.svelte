@@ -33,6 +33,7 @@
         @apply duration-150;
         @apply ease-in-out;
         @apply border;
+        @apply rounded-md;
         &:focus {
             @apply outline-none;
             @apply border-indigo-300;

@@ -1,20 +1,18 @@
-import { getCookie } from "$lib/util";
-// import { appAuth } from "$lib/appAuth";
+import { parseLocale, parseUser } from "$lib/util";
 
 /** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ request, render }) {
-	const cookies = getCookie(request.headers.cookie, 'jwt');
-	const jwt = cookies && Buffer.from(cookies, 'base64').toString('utf-8');
-	request.locals.user = jwt && JSON.parse(jwt);
+export async function handle({ request, resolve }) {
+	request.locals.user = parseUser(request.headers.cookie);
+	request.locals.locale = parseLocale(request.headers);
 
-	const response = await render(request);
-
+	const response = await resolve(request);
 	return {
 		...response,
 		headers: {
 			...response.headers,
-			user: jwt ? JSON.parse(jwt) : null
-		}
+			user: request.locals.user,
+			locale: request.locals.locale,
+		},
 	};
 }
 
@@ -26,5 +24,6 @@ export function getSession(request) {
 			picture: request.locals.user?.picture,
 			display_name: request.locals.user?.display_name,
 		},
+		locale: request.locals.locale,
 	};
 }

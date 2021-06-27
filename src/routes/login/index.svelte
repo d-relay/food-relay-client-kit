@@ -7,23 +7,27 @@
     }
 </script>
 
+<script>
+    import { t } from "svelte-intl-precompile";
+</script>
+
 <svelte:head>
     <title>Relay • Sign in</title>
 </svelte:head>
 
 <main class="background--container">
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow-main sm:rounded-lg sm:px-10">
             <div class="sm:mx-auto sm:w-full sm:max-w-md">
                 <h2
                     class="my-6 text-center text-3xl font-extrabold text-gray-900"
                 >
-                    Sign in to your account
+                {$t('login.welcome')} 
                 </h2>
             </div>
             <div class="mt-6">
-                <a href="/auth/twitch" class="auth--button">
-                    <span class="sr-only">Sign in with Twitch</span>
+                <a href="/auth/twitch" class="auth--button shadow-main">
+                    <span class="sr-only">{$t('login.twitch')}</span>
                     <div class="auth-lock-social-button-icon">
                         <img
                             width="25"
@@ -31,13 +35,13 @@
                             alt="Twitch Logo"
                         />
                     </div>
-                    Login with Twitch
+                    {$t('login.twitch')}
                 </a>
             </div>
 
             <div class="mt-6">
-                <a href="/auth/google" class="auth--button">
-                    <span class="sr-only">Sign in with Google</span>
+                <a href="/auth/google" class="auth--button shadow-main">
+                    <span class="sr-only">{$t('login.google')}</span>
                     <div class="auth-lock-social-button-icon">
                         <img
                             width="25"
@@ -45,7 +49,7 @@
                             alt="Google Logo"
                         />
                     </div>
-                    Login with Google
+                    {$t('login.google')}
                 </a>
             </div>
         </div>
@@ -71,17 +75,18 @@
         @apply flex;
         @apply justify-center;
         @apply border;
+        @apply border-transparent;
         @apply p-3;
         @apply sm:rounded-lg;
-
         @apply focus:outline-none;
     }
 
     .auth--button:focus,
     .auth--button:hover,
     .auth--button:focus-within {
-        @apply border-teal-500;
-        @apply shadow-teal;
+        @apply outline-none;
+        @apply ring-2;
+        @apply ring-indigo-500;
     }
 
     .auth-lock-social-button-icon {

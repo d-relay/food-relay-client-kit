@@ -1,6 +1,6 @@
 import sveltePreprocess from 'svelte-preprocess';
 import node from '@sveltejs/adapter-node';
-// const pkg = require('./package.json');
+import { windi } from "svelte-windicss-preprocess";
 import dotenv from 'dotenv';
 import precompileIntl from "svelte-intl-precompile/sveltekit-plugin.js";
 
@@ -10,7 +10,7 @@ export default {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
 	preprocess: sveltePreprocess({
-		postcss: true,
+		postcss: [windi({})],
 		replace: [
 			['CLOUDINARY_IMAGE_URL', process.env.VITE_CLOUDINARY_IMAGE_URL],
 			['CLOUDINARY_IMAGE_URL', process.env.VITE_CLOUDINARY_IMAGE_URL],
