@@ -6,9 +6,12 @@
 
     import { post, clickOutside } from "$lib/util";
 
-    import { locales, t, locale } from "svelte-intl-precompile";
+    import GB from "$lib/assets/flags/🇬🇧.svelte";
+    import RU from "$lib/assets/flags/🇷🇺.svelte";
+    import UA from "$lib/assets/flags/🇺🇦.svelte";
+    import Bell from "$lib/assets/icons/Bell.svelte";
 
-    import Bell from "../icons/Bell.svelte";
+    import { locales, t, locale } from "svelte-intl-precompile";
 
     let showLang = false;
 
@@ -22,14 +25,20 @@
 
     function setLocale(lang) {
         showLang = false;
+        locale.set(lang);
         $session.locale = lang;
         post("/lang", { lang });
     }
+
+    const flags = new Map([
+        ["uk", UA],
+        ["en", GB],
+        ["ru", RU],
+    ]);
 </script>
 
 <div
-    class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static
-      sm:inset-auto sm:ml-6 sm:pr-0"
+    class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
 >
     <div
         class="mt-1 relative"
@@ -38,13 +47,9 @@
     >
         <button
             on:click={() => (showLang = !showLang)}
-            class="bg-white relative w-full border border-gray-300 rounded-md shadow-sm 
-            pl-3 pr-10 py-2 text-left cursor-default 
-            focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            class="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         >
-            <span class="block truncate">
-                {$t("language." + $session.locale + ".flag")}
-            </span>
+            <svelte:component this={flags.get($session.locale)} />
             <span
                 class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
             >

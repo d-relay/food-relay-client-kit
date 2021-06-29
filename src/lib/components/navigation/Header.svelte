@@ -1,6 +1,6 @@
 <script>
   import { session } from "$app/stores";
-  import Hamburger from "../icons/Hamburger.svelte";
+  import Hamburger from "../../assets/icons/Hamburger.svelte";
 
   import LeftSideMenu from "./LeftSideMenu.svelte";
   import RightSideMenu from "./RightSideMenu.svelte";

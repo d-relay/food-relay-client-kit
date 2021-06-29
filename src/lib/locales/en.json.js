@@ -46,8 +46,6 @@ export default {
 
     "language.en": "English",
     "language.uk": "Ukrainian",
-    "language.ru": "Russian",
-    "language.en.flag": "🇬🇧",
-    "language.uk.flag": "🇺🇦",
-    "language.ru.flag": "🇷🇺"
+    "language.ru": "Russian"
+    
 }
