@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"dev:tailwind": "cross-env NODE_ENV=development postcss src/routes/tailwind.css -o  static/index.css -w",
+		"dev:wind": "cross-env NODE_ENV=development postcss src/routes/tailwind.css -o  static/index.css -w",
 		"prebuild": "cross-env NODE_ENV=production postcss src/routes/tailwind.css -o static/index.css",
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
@@ -26,7 +26,7 @@
 		"svelte-preprocess": "^4.7.3",
 		"svelte-windicss-preprocess": "^4.0.11",
 		"tslib": "^2.3.0",
-		"typescript": "^4.3.4",
+		"typescript": "^4.3.5",
 		"vite": "^2.3.8"
 	},
 	"engines": {

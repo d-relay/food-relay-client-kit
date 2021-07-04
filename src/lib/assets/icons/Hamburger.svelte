@@ -18,13 +18,6 @@
   d="M6 18L18 6M6 6l12 12"
 />
 
-<svg class="hamburger" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <use xlink:href="#{open ? 'hamburger_open' : 'hamburger_close'}" />
 </svg>
-
-<style>
-  .hamburger {
-    @apply h-6;
-    @apply w-6;
-  }
-</style>

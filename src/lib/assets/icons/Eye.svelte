@@ -17,19 +17,10 @@
 />
 <svg
   on:click={close}
-  class="eye"
+  class="h-6 w-6 text-gray-700 z-10"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 576 512"
 >
   <use xlink:href="#{open ? 'eye_open' : 'eye_close'}" />
 </svg>
-
-<style>
-  .eye {
-    @apply h-6;
-    @apply w-6;
-    @apply text-gray-700;
-    @apply z-10;
-  }
-</style>

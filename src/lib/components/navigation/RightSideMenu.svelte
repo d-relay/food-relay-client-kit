@@ -4,37 +4,13 @@
     import { session } from "$app/stores";
     import { goto } from "$app/navigation";
 
-    import { post, clickOutside } from "$lib/util";
+    import { clickOutside } from "$lib/util";
+    import { flags } from "$lib/components/flags";
+    import { logout, updateLocale, showLang } from "./method";
 
-    import GB from "$lib/assets/flags/🇬🇧.svelte";
-    import RU from "$lib/assets/flags/🇷🇺.svelte";
-    import UA from "$lib/assets/flags/🇺🇦.svelte";
-    import Bell from "$lib/assets/icons/Bell.svelte";
+    import { Bell, Selector } from "$lib/assets/icons";
 
-    import { locales, t, locale } from "svelte-intl-precompile";
-
-    let showLang = false;
-
-    async function logout() {
-        const response = await post("/auth/logout");
-        if (response.ok) {
-            $session.user = null;
-            return goto("/");
-        }
-    }
-
-    function setLocale(lang) {
-        showLang = false;
-        locale.set(lang);
-        $session.locale = lang;
-        post("/lang", { lang });
-    }
-
-    const flags = new Map([
-        ["uk", UA],
-        ["en", GB],
-        ["ru", RU],
-    ]);
+    import { locales, t } from "svelte-intl-precompile";
 </script>
 
 <div
@@ -43,32 +19,20 @@
     <div
         class="mt-1 relative"
         use:clickOutside
-        on:click_outside={() => (showLang = false)}
+        on:click_outside={() => showLang.set(false)}
     >
         <button
-            on:click={() => (showLang = !showLang)}
-            class="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            on:click={() => showLang.update((n) => !n)}
+            class="hidden sm:block bg-white relative w-24 border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         >
             <svelte:component this={flags.get($session.locale)} />
             <span
                 class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
             >
-                <svg
-                    class="h-5 w-5 text-gray-400"
-                    x-description="Heroicon name: solid/selector"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                    />
-                </svg>
+                <Selector />
             </span>
         </button>
-        {#if showLang}
+        {#if $showLang}
             <div
                 in:scale={{ duration: 100, start: 0.95 }}
                 out:scale={{ duration: 75, start: 0.95 }}
@@ -79,7 +43,7 @@
                         class:selected={$session.locale === lang}
                         class="dropdown__item cursor-pointer"
                         role="menuitem"
-                        on:click={() => setLocale(lang)}
+                        on:click={() => updateLocale(lang, $session)}
                     >
                         {$t("language." + lang)}
                     </span>
@@ -143,7 +107,7 @@
             </Dropdown> -->
         </div>
         <button
-            on:click={logout}
+            on:click={() => logout($session).then(() => goto("/"))}
             class="ml-3 relative inline-flex items-center px-4 py-2 border 
             border-transparent text-sm leading-5 font-medium rounded-md 
             hover:underline hover:text-indigo-500
